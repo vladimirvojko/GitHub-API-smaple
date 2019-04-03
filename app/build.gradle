@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion config.compileSdk
+
+    defaultConfig {
+        minSdkVersion config.minSdk
+        targetSdkVersion config.targetSdk
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        all {
+            buildConfigField "String", "API_ENDPOINT", '"https://api.github.com/"'
+            buildConfigField "String", "API_TOKEN", '"6e904891e6af911679736e7bf819b78a17117d67"'
+            buildConfigField "Long", "API_REQUEST_TIMEOUT", '30L'
+        }
+    }
+
+    compileOptions {
+        targetCompatibility = "8"
+        sourceCompatibility = "8"
+    }
+}
+
+dependencies {
+    api library.kotlin.stdlib
+    api library.kotlin.coroutine.jdk
+    api library.kotlin.coroutine.android
+
+    api library.androidx.core
+    api library.androidx.appcompat
+    api library.androidx.constraint
+
+    api library.material
+
+    api library.retrofit.retrofit
+    api library.retrofit.adapter
+    api library.retrofit.converter
+
+    api library.okhttp.client
+    api library.okhttp.logging
+
+    api library.toothpick.runtime
+    kapt library.toothpick.compiler
+
+    api library.glide.runtime
+}
